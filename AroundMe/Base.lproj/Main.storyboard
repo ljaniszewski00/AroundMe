@@ -171,7 +171,7 @@
                                     <constraint firstItem="C6T-sa-WCJ" firstAttribute="width" secondItem="7P4-38-sAO" secondAttribute="width" id="BGE-gb-WCG"/>
                                     <constraint firstItem="C6T-sa-WCJ" firstAttribute="top" secondItem="7P4-38-sAO" secondAttribute="top" id="bWX-Sh-BHu"/>
                                     <constraint firstItem="C6T-sa-WCJ" firstAttribute="leading" secondItem="7P4-38-sAO" secondAttribute="leading" id="ew7-dK-R6g"/>
-                                    <constraint firstAttribute="bottom" secondItem="C6T-sa-WCJ" secondAttribute="bottom" id="ufr-nE-msC"/>
+                                    <constraint firstAttribute="bottom" secondItem="C6T-sa-WCJ" secondAttribute="bottom" constant="10" id="ufr-nE-msC"/>
                                     <constraint firstAttribute="trailing" secondItem="C6T-sa-WCJ" secondAttribute="trailing" id="z4Q-6s-JDH"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="dky-uS-Af1"/>

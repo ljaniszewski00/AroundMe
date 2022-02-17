@@ -10,7 +10,6 @@ import UIKit
 class PlacesListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "Places"
     }
 }
 

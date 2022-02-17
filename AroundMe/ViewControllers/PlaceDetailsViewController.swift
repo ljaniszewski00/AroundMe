@@ -17,8 +17,7 @@ class PlaceDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        placeMapView.showsUserLocation = true
-        placeMapView.clipsToBounds = true
         // Do any additional setup after loading the view.
+        placeMapView.layer.cornerRadius = 20
     }
 }

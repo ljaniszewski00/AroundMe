@@ -8,7 +8,6 @@
 import UIKit
 
 class PlacesListViewController: UITableViewController {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Places"
@@ -27,11 +26,10 @@ extension PlacesListViewController {
                 fatalError("Unable to dequeue ReminderCell")
             }
         let place = Place.testData[indexPath.row]
+        cell.placeImage.layer.cornerRadius = 10
+        cell.placeImage.image = place.image
         cell.titleLabel.text = place.title
         cell.distanceLabel.text = String(place.distance) + " km"
-        cell.placeImageButton.setBackgroundImage(place.image, for: .normal)
-        cell.placeImageButton.layer.cornerRadius = 10
-        cell.placeImageButton.clipsToBounds = true
         return cell
     }
 }

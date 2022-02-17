@@ -27,21 +27,15 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="FCg-9X-O5i">
                                             <rect key="frame" x="10" y="10" width="379.33333333333331" height="79"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wLS-ai-ncC">
-                                                    <rect key="frame" x="0.0" y="0.0" width="110" height="79"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="krakow" translatesAutoresizingMaskIntoConstraints="NO" id="wmA-lG-C2u">
+                                                    <rect key="frame" x="0.0" y="0.0" width="140" height="79"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="110" id="41d-9P-aJS"/>
-                                                        <constraint firstAttribute="height" constant="80" id="f9i-U6-fTS"/>
+                                                        <constraint firstAttribute="width" constant="140" id="6Fk-Vv-euN"/>
+                                                        <constraint firstAttribute="height" constant="80" id="sY9-GW-FuE"/>
                                                     </constraints>
-                                                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" image="photo" catalog="system"/>
-                                                    <connections>
-                                                        <action selector="placeImageButtonTapped:" destination="eOc-1b-RKA" eventType="touchUpInside" id="cQj-nd-c2J"/>
-                                                    </connections>
-                                                </button>
+                                                </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="8Zb-Ix-J6y">
-                                                    <rect key="frame" x="130" y="10" width="249.33333333333337" height="59"/>
+                                                    <rect key="frame" x="160" y="10" width="219.33333333333337" height="59"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xd5-Tr-CfS">
                                                             <rect key="frame" x="0.0" y="0.0" width="43.666666666666664" height="26"/>
@@ -71,15 +65,15 @@
                                         </stackView>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="FCg-9X-O5i" firstAttribute="leading" secondItem="3RA-xc-FJJ" secondAttribute="leading" constant="10" id="0Ub-Gs-kD5"/>
                                         <constraint firstItem="FCg-9X-O5i" firstAttribute="top" secondItem="3RA-xc-FJJ" secondAttribute="top" constant="10" id="Tj9-Sk-oD7"/>
-                                        <constraint firstAttribute="trailing" secondItem="FCg-9X-O5i" secondAttribute="trailing" constant="10" id="VXD-Li-bpX"/>
-                                        <constraint firstItem="FCg-9X-O5i" firstAttribute="leading" secondItem="3RA-xc-FJJ" secondAttribute="leading" constant="10" id="VtB-XA-f7Z"/>
                                         <constraint firstAttribute="bottom" secondItem="FCg-9X-O5i" secondAttribute="bottom" constant="10" id="bkT-g0-hOM"/>
+                                        <constraint firstAttribute="trailing" secondItem="FCg-9X-O5i" secondAttribute="trailing" constant="10" id="pNI-Lt-5z7"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="distanceLabel" destination="F4S-sa-uXs" id="VkQ-iP-r5K"/>
-                                    <outlet property="placeImageButton" destination="wLS-ai-ncC" id="ONe-Xf-vfF"/>
+                                    <outlet property="placeImage" destination="wmA-lG-C2u" id="ZCK-88-7Em"/>
                                     <outlet property="titleLabel" destination="Xd5-Tr-CfS" id="uqS-c1-ohx"/>
                                     <segue destination="XG6-jo-46e" kind="show" id="KZM-5S-ogj"/>
                                 </connections>
@@ -197,7 +191,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="photo" catalog="system" width="128" height="93"/>
+        <image name="krakow" width="788" height="444"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

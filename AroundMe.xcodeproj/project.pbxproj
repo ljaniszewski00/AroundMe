@@ -17,6 +17,7 @@
 		0A3E86EF27BDA78E005B55C9 /* PlaceDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E86EE27BDA78E005B55C9 /* PlaceDetailsViewController.swift */; };
 		0A3E86F227BDB3BE005B55C9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3E86F127BDB3BE005B55C9 /* MapKit.framework */; };
 		0ABE46F027BE8BD400A68223 /* PlacesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE46EF27BE8BD400A68223 /* PlacesListCell.swift */; };
+		0ABE46F227C0074A00A68223 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE46F127C0074A00A68223 /* MapAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		0A3E86EE27BDA78E005B55C9 /* PlaceDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailsViewController.swift; sourceTree = "<group>"; };
 		0A3E86F127BDB3BE005B55C9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0ABE46EF27BE8BD400A68223 /* PlacesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesListCell.swift; sourceTree = "<group>"; };
+		0ABE46F127C0074A00A68223 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 		0A3E86D427BBB93D005B55C9 /* AroundMe */ = {
 			isa = PBXGroup;
 			children = (
+				0ABE46F327C00C6800A68223 /* Utils */,
 				0A864D9427BDBAB700483401 /* Models */,
 				0A3E86ED27BDA74B005B55C9 /* ViewControllers */,
 				0A3E86D527BBB93D005B55C9 /* AppDelegate.swift */,
@@ -100,8 +103,16 @@
 			isa = PBXGroup;
 			children = (
 				0A3E86EB27BBC9DB005B55C9 /* Place.swift */,
+				0ABE46F127C0074A00A68223 /* MapAnnotation.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		0ABE46F327C00C6800A68223 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +188,7 @@
 			files = (
 				0A3E86EF27BDA78E005B55C9 /* PlaceDetailsViewController.swift in Sources */,
 				0A3E86DA27BBB93D005B55C9 /* PlacesListViewController.swift in Sources */,
+				0ABE46F227C0074A00A68223 /* MapAnnotation.swift in Sources */,
 				0A3E86D627BBB93D005B55C9 /* AppDelegate.swift in Sources */,
 				0ABE46F027BE8BD400A68223 /* PlacesListCell.swift in Sources */,
 				0A3E86D827BBB93D005B55C9 /* SceneDelegate.swift in Sources */,
@@ -332,6 +344,9 @@
 				DEVELOPMENT_TEAM = T3SR62DCTW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AroundMe/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Used to show to user's location on the map";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Used to show to user's location on the map";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Used to show to user's location on the map";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -361,6 +376,9 @@
 				DEVELOPMENT_TEAM = T3SR62DCTW;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AroundMe/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Used to show to user's location on the map";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Used to show to user's location on the map";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Used to show to user's location on the map";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

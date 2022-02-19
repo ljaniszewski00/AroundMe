@@ -23,7 +23,7 @@ It uses custom API to load data of different places to the app and MongoDB Realm
 
 
 ## Status
-Finished
+In Progress...
 
 
 ## Requirements

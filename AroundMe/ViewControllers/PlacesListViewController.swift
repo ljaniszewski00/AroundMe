@@ -10,14 +10,35 @@ import MapKit
 import CoreLocation
 import WikipediaKit
 
-
 class PlacesListViewController: UITableViewController, CLLocationManagerDelegate {
     var locationManager: CLLocationManager!
     var places: [Place] = [Place]()
     let wikipedia = Wikipedia()
+
+    let dataLoadingIndicator = UIActivityIndicatorView()
+    let dataLoadingLabel = UILabel(frame: CGRect(x: 0, y: 50, width: 400, height: 25))
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        // Loading indicator subviews
+        
+        dataLoadingIndicator.center = self.view.center
+        self.view.addSubview(dataLoadingIndicator)
+        dataLoadingIndicator.startAnimating()
+        dataLoadingIndicator.style = .large
+        dataLoadingIndicator.backgroundColor = .white
+        
+        dataLoadingLabel.text = "Please Wait. Data is being loaded..."
+        dataLoadingLabel.center = CGPoint(x: self.view.center.x, y: self.view.center.y + 75)
+        dataLoadingLabel.font = UIFont(name: "HelveticaNeue", size: 20)
+        dataLoadingLabel.textAlignment = .center
+        self.view.addSubview(dataLoadingLabel)
+    
+        //
+        
+        
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -36,10 +57,6 @@ class PlacesListViewController: UITableViewController, CLLocationManagerDelegate
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    private func getCells() {
-        
-    }
 }
 
 extension PlacesListViewController {
@@ -48,9 +65,14 @@ extension PlacesListViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlacesListCell", for: indexPath) as? PlacesListCell else {
-                fatalError("Unable to dequeue ReminderCell")
-            }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlacesListCell", for: indexPath) as? PlacesListCell else {
+            fatalError("Unable to dequeue ReminderCell")
+        }
+        
+        dataLoadingIndicator.stopAnimating()
+        dataLoadingIndicator.hidesWhenStopped = true
+        dataLoadingLabel.isHidden = true
+        
         let place = self.places[indexPath.row]
         cell.placeImage.layer.cornerRadius = 10
         cell.placeImage.image = place.image
@@ -69,7 +91,6 @@ extension PlacesListViewController {
         } else {
             cell.distanceLabel.text = "-"
         }
-        
         return cell
     }
     
@@ -104,7 +125,7 @@ extension PlacesListViewController {
             }
             
             let radius = 100
-            let limit = 3
+            let limit = 10
             
             /*
              

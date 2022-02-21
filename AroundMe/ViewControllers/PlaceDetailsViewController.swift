@@ -12,6 +12,7 @@ import CoreLocation
 class PlaceDetailsViewController: UIViewController {
     @IBOutlet weak var placeImage: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var distanceLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var placeMapView: MKMapView!
@@ -23,6 +24,9 @@ class PlaceDetailsViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         navigationItem.title = tableViewRowData.title
+        favoriteButton.setImage(UIImage(systemName: "star")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        favoriteButton.imageView?.contentMode = .scaleAspectFill
+        favoriteButton.tintColor = .yellow
         titleLabel.text = tableViewRowData.title
         
         if let placeDistance = tableViewRowData.distance {
@@ -62,5 +66,20 @@ class PlaceDetailsViewController: UIViewController {
         
         placeMapView.showsUserLocation = true
     }
-
+    
+    @IBAction func favoriteButtonTapped(_ sender: UIButton) {
+        if Place.favorites.contains(tableViewRowData) {
+            for (index, place) in Place.favorites.enumerated() {
+                if place == tableViewRowData {
+                    Place.favorites.remove(at: index)
+                    break
+                }
+            }
+            sender.setImage(UIImage(systemName: "star")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        } else {
+            Place.favorites.append(tableViewRowData)
+            sender.setImage(UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        }
+    }
+    
 }

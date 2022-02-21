@@ -8,11 +8,13 @@
 import UIKit
 import MapKit
 import CoreLocation
+import WikipediaKit
 
 
 class PlacesListViewController: UITableViewController, CLLocationManagerDelegate {
     var locationManager: CLLocationManager!
     var places: [Place] = [Place]()
+    let wikipedia = Wikipedia()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +28,9 @@ class PlacesListViewController: UITableViewController, CLLocationManagerDelegate
             locationManager.startUpdatingLocation()
         }
         
-        self.makeAPICall()
+        WikipediaNetworking.appAuthorEmailForAPI = "ljaniszewski00@gmail.com"
         
+        self.makeAPICall()
     }
     
     override func didReceiveMemoryWarning() {
@@ -119,12 +122,37 @@ extension PlacesListViewController {
         }
     }
     
-    private func updateTableView(data: [APIPlace]) {
+    private func getAllPlacesData(data: [APIPlace]) {
+        let myGroup = DispatchGroup()
+        
         for apiPlace in data {
-            let newPlace = Place(title: apiPlace.city, distance: nil, description: nil, image: nil, latitude: apiPlace.latitude, longitude: apiPlace.longitude)
-            places.append(newPlace)
+            myGroup.enter()
+            
+            wikipedia.requestOptimizedSearchResults(language: WikipediaLanguage("en"), term: apiPlace.city) { (searchResult, error) in
+                if let searchResult = searchResult {
+                    let result = searchResult.items[0]
+                    if let imageURL = result.imageURL {
+                        downloadImage(from: imageURL) { image in
+                            let newPlace = Place(title: apiPlace.city, distance: nil, description: result.displayText, image: image, latitude: apiPlace.latitude, longitude: apiPlace.longitude)
+                            self.places.append(newPlace)
+                            myGroup.leave()
+                        }
+                    } else {
+                        let newPlace = Place(title: apiPlace.city, distance: nil, description: result.displayText, image: nil, latitude: apiPlace.latitude, longitude: apiPlace.longitude)
+                        self.places.append(newPlace)
+                        myGroup.leave()
+                    }
+                }
+            }
         }
         
+        myGroup.notify(queue: .main) {
+            print("Finished all requests.")
+            self.updateTableView()
+        }
+    }
+    
+    private func updateTableView() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
@@ -219,7 +247,7 @@ extension PlacesListViewController {
                                     let apiPlaceDecoded = try JSONDecoder().decode(APIPlace.self, from: apiPlaceData)
                                     apiPlaces.append(apiPlaceDecoded)
                                 }
-                                self?.updateTableView(data: apiPlaces)
+                                self?.getAllPlacesData(data: apiPlaces)
                             }
                         } catch {
                             print("Error making dictionary type json object from downloaded data")

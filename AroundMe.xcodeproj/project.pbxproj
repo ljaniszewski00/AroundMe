@@ -16,6 +16,8 @@
 		0A3E86EC27BBC9DB005B55C9 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E86EB27BBC9DB005B55C9 /* Place.swift */; };
 		0A3E86EF27BDA78E005B55C9 /* PlaceDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3E86EE27BDA78E005B55C9 /* PlaceDetailsViewController.swift */; };
 		0A3E86F227BDB3BE005B55C9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3E86F127BDB3BE005B55C9 /* MapKit.framework */; };
+		0A4EA57127C3C974005ED641 /* WikipediaKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4EA57027C3C974005ED641 /* WikipediaKit */; };
+		0A4EA57327C3CD87005ED641 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4EA57227C3CD87005ED641 /* Functions.swift */; };
 		0ABE46F027BE8BD400A68223 /* PlacesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE46EF27BE8BD400A68223 /* PlacesListCell.swift */; };
 		0ABE46F227C0074A00A68223 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE46F127C0074A00A68223 /* MapAnnotation.swift */; };
 		0ADFEF4C27C27D5300491F06 /* APIPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADFEF4B27C27D5300491F06 /* APIPlace.swift */; };
@@ -33,6 +35,7 @@
 		0A3E86EB27BBC9DB005B55C9 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		0A3E86EE27BDA78E005B55C9 /* PlaceDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailsViewController.swift; sourceTree = "<group>"; };
 		0A3E86F127BDB3BE005B55C9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		0A4EA57227C3CD87005ED641 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		0ABE46EF27BE8BD400A68223 /* PlacesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesListCell.swift; sourceTree = "<group>"; };
 		0ABE46F127C0074A00A68223 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		0ADFEF4B27C27D5300491F06 /* APIPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPlace.swift; sourceTree = "<group>"; };
@@ -44,6 +47,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A3E86F227BDB3BE005B55C9 /* MapKit.framework in Frameworks */,
+				0A4EA57127C3C974005ED641 /* WikipediaKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +118,7 @@
 		0ABE46F327C00C6800A68223 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				0A4EA57227C3CD87005ED641 /* Functions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -134,6 +139,9 @@
 			dependencies = (
 			);
 			name = AroundMe;
+			packageProductDependencies = (
+				0A4EA57027C3C974005ED641 /* WikipediaKit */,
+			);
 			productName = AroundMe;
 			productReference = 0A3E86D227BBB93D005B55C9 /* AroundMe.app */;
 			productType = "com.apple.product-type.application";
@@ -162,6 +170,9 @@
 				Base,
 			);
 			mainGroup = 0A3E86C927BBB93D005B55C9;
+			packageReferences = (
+				0A4EA56F27C3C973005ED641 /* XCRemoteSwiftPackageReference "WikipediaKit" */,
+			);
 			productRefGroup = 0A3E86D327BBB93D005B55C9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -191,6 +202,7 @@
 			files = (
 				0ADFEF4C27C27D5300491F06 /* APIPlace.swift in Sources */,
 				0A3E86EF27BDA78E005B55C9 /* PlaceDetailsViewController.swift in Sources */,
+				0A4EA57327C3CD87005ED641 /* Functions.swift in Sources */,
 				0A3E86DA27BBB93D005B55C9 /* PlacesListViewController.swift in Sources */,
 				0ABE46F227C0074A00A68223 /* MapAnnotation.swift in Sources */,
 				0A3E86D627BBB93D005B55C9 /* AppDelegate.swift in Sources */,
@@ -424,6 +436,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0A4EA56F27C3C973005ED641 /* XCRemoteSwiftPackageReference "WikipediaKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Raureif/WikipediaKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0A4EA57027C3C974005ED641 /* WikipediaKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A4EA56F27C3C973005ED641 /* XCRemoteSwiftPackageReference "WikipediaKit" */;
+			productName = WikipediaKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0A3E86CA27BBB93D005B55C9 /* Project object */;
 }

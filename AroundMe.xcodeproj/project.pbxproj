@@ -18,6 +18,7 @@
 		0A3E86F227BDB3BE005B55C9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3E86F127BDB3BE005B55C9 /* MapKit.framework */; };
 		0ABE46F027BE8BD400A68223 /* PlacesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE46EF27BE8BD400A68223 /* PlacesListCell.swift */; };
 		0ABE46F227C0074A00A68223 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE46F127C0074A00A68223 /* MapAnnotation.swift */; };
+		0ADFEF4C27C27D5300491F06 /* APIPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADFEF4B27C27D5300491F06 /* APIPlace.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		0A3E86F127BDB3BE005B55C9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0ABE46EF27BE8BD400A68223 /* PlacesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesListCell.swift; sourceTree = "<group>"; };
 		0ABE46F127C0074A00A68223 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
+		0ADFEF4B27C27D5300491F06 /* APIPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPlace.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 			children = (
 				0A3E86EB27BBC9DB005B55C9 /* Place.swift */,
 				0ABE46F127C0074A00A68223 /* MapAnnotation.swift */,
+				0ADFEF4B27C27D5300491F06 /* APIPlace.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0ADFEF4C27C27D5300491F06 /* APIPlace.swift in Sources */,
 				0A3E86EF27BDA78E005B55C9 /* PlaceDetailsViewController.swift in Sources */,
 				0A3E86DA27BBB93D005B55C9 /* PlacesListViewController.swift in Sources */,
 				0ABE46F227C0074A00A68223 /* MapAnnotation.swift in Sources */,

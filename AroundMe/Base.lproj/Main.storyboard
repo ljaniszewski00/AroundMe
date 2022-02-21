@@ -92,6 +92,9 @@
                         </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" title="Places" id="jnD-CQ-I7V"/>
+                    <connections>
+                        <outlet property="tableView" destination="cwd-dG-Mve" id="7Y8-tY-XOo"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vIB-iS-9Bo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

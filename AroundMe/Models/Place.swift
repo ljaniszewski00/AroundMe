@@ -11,7 +11,7 @@ struct Place {
     var title: String
     var distance: Int?
     var description: String?
-    var image: UIImage
+    var image: UIImage?
     var latitude: Double?
     var longitude: Double?
 }
@@ -28,10 +28,11 @@ extension Place {
               image: UIImage(named: "lodz")!,
               latitude: 51.759445,
               longitude: 19.457216),
-        Place(title: "Krakow",
+        Place(title: "Cracow",
               description: "Krakow, also known in English as Cracow, is the second-largest and one of the oldest cities in Poland. Situated on the Vistula River in Lesser Poland Voivodeship, the city dates back to the seventh century. Kraków was the official capital of Poland until 1596 and has traditionally been one of the leading centres of Polish academic, economic, cultural and artistic life.",
               image: UIImage(named: "krakow")!,
               latitude: 50.049683,
               longitude: 19.944544)
     ]
 }
+

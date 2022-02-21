@@ -17,6 +17,7 @@ class PlaceDetailsViewController: UIViewController {
     @IBOutlet weak var placeMapView: MKMapView!
     
     var tableViewRowData: Place = Place(title: "temp", distance: 320, image: UIImage(named: "warsaw")!)
+//    var usersLocation: CLLocation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,12 +36,28 @@ class PlaceDetailsViewController: UIViewController {
         
         placeMapView.layer.cornerRadius = 20
         
-        if let latitude = tableViewRowData.latitude, let longitude = tableViewRowData.longitude {
+        if let placeLatitude = tableViewRowData.latitude, let placeLongitude = tableViewRowData.longitude {
             let newPin = MKPointAnnotation()
-            newPin.coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            newPin.coordinate = CLLocationCoordinate2D(latitude: placeLatitude, longitude: placeLongitude)
+            
             let region = MKCoordinateRegion(center: newPin.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
-            placeMapView.addAnnotations([newPin])
             placeMapView.setRegion(region, animated: true)
+            
+            
+            /*
+             TRIED TO MAKE TWO POINTS (USER'S LOCATION AND SELECTED PLACE PIN) VISIBLE AT MAP AT IT'S LAUNCH
+             
+            if let usersLocation = usersLocation {
+                let region = MKCoordinateRegion(center: newPin.coordinate, span: MKCoordinateSpan(latitudeDelta: abs(usersLocation.coordinate.latitude - placeLatitude), longitudeDelta: abs(usersLocation.coordinate.longitude - placeLongitude)))
+                placeMapView.setRegion(region, animated: true)
+            } else {
+                let region = MKCoordinateRegion(center: newPin.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+                placeMapView.setRegion(region, animated: true)
+            }
+             
+             */
+            
+            placeMapView.addAnnotations([newPin])
         }
         
         placeMapView.showsUserLocation = true

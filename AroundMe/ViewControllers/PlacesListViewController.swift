@@ -43,46 +43,6 @@ class PlacesListViewController: UITableViewController, CLLocationManagerDelegate
 }
 
 extension PlacesListViewController {
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return Place.testData.count
-//    }
-//
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlacesListCell", for: indexPath) as? PlacesListCell else {
-//                fatalError("Unable to dequeue ReminderCell")
-//            }
-//        let place = Place.testData[indexPath.row]
-//        cell.placeImage.layer.cornerRadius = 10
-//        cell.placeImage.image = place.image
-//        cell.titleLabel.text = place.title
-//
-//        if let placeLatitude = Place.testData[indexPath.row].latitude, let placeLongitude = Place.testData[indexPath.row].longitude, let usersLocation = self.locationManager.location {
-//            let placeLocation = CLLocation(latitude: placeLatitude, longitude: placeLongitude)
-//            let distanceMeters = usersLocation.distance(from: placeLocation)
-//            let distanceKilometers = Int(distanceMeters / 1000)
-//            Place.testData[indexPath.row].distance = distanceKilometers
-//
-//
-//        }
-//
-//        if let placeDistance = Place.testData[indexPath.row].distance {
-//            cell.distanceLabel.text = "\(placeDistance) km"
-//        } else {
-//            cell.distanceLabel.text = "-"
-//        }
-//
-//        return cell
-//    }
-//
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let indexPath = self.tableView.indexPathForSelectedRow {
-//            let tableViewRowData = Place.testData[indexPath.row]
-//            let placeDetailsViewController = segue.destination as! PlaceDetailsViewController
-//            placeDetailsViewController.tableViewRowData = tableViewRowData
-////            placeDetailsViewController.usersLocation = locationManager.location
-//        }
-//    }
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.places.count
     }
@@ -122,43 +82,7 @@ extension PlacesListViewController {
         }
     }
     
-    private func getAllPlacesData(data: [APIPlace]) {
-        let myGroup = DispatchGroup()
-        
-        for apiPlace in data {
-            myGroup.enter()
-            
-            wikipedia.requestOptimizedSearchResults(language: WikipediaLanguage("en"), term: apiPlace.city) { (searchResult, error) in
-                if let searchResult = searchResult {
-                    let result = searchResult.items[0]
-                    if let imageURL = result.imageURL {
-                        downloadImage(from: imageURL) { image in
-                            let newPlace = Place(title: apiPlace.city, distance: nil, description: result.displayText, image: image, latitude: apiPlace.latitude, longitude: apiPlace.longitude)
-                            self.places.append(newPlace)
-                            myGroup.leave()
-                        }
-                    } else {
-                        let newPlace = Place(title: apiPlace.city, distance: nil, description: result.displayText, image: nil, latitude: apiPlace.latitude, longitude: apiPlace.longitude)
-                        self.places.append(newPlace)
-                        myGroup.leave()
-                    }
-                }
-            }
-        }
-        
-        myGroup.notify(queue: .main) {
-            print("Finished all requests.")
-            self.updateTableView()
-        }
-    }
-    
-    private func updateTableView() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    
-    func makeAPICall() {
+    private func makeAPICall() {
         
         /*
          Using GeoDB Cities API from https://rapidapi.com/wirefreethought/api/geodb-cities/ to retrieve Cities Near Location results with GET method
@@ -259,6 +183,42 @@ extension PlacesListViewController {
             } else {
                 print("Error creating URL object")
             }
+        }
+    }
+    
+    private func getAllPlacesData(data: [APIPlace]) {
+        let myGroup = DispatchGroup()
+        
+        for apiPlace in data {
+            myGroup.enter()
+            
+            wikipedia.requestOptimizedSearchResults(language: WikipediaLanguage("en"), term: apiPlace.city) { (searchResult, error) in
+                if let searchResult = searchResult {
+                    let result = searchResult.items[0]
+                    if let imageURL = result.imageURL {
+                        downloadImage(from: imageURL) { image in
+                            let newPlace = Place(title: apiPlace.city, distance: nil, description: result.displayText, image: image, latitude: apiPlace.latitude, longitude: apiPlace.longitude)
+                            self.places.append(newPlace)
+                            myGroup.leave()
+                        }
+                    } else {
+                        let newPlace = Place(title: apiPlace.city, distance: nil, description: result.displayText, image: UIImage(systemName: "photo.on.rectangle.angled"), latitude: apiPlace.latitude, longitude: apiPlace.longitude)
+                        self.places.append(newPlace)
+                        myGroup.leave()
+                    }
+                }
+            }
+        }
+        
+        myGroup.notify(queue: .main) {
+            print("Finished all requests.")
+            self.updateTableView()
+        }
+    }
+    
+    private func updateTableView() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
 }

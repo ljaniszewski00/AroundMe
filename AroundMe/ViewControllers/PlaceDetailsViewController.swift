@@ -16,7 +16,7 @@ class PlaceDetailsViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var placeMapView: MKMapView!
     
-    var tableViewRowData: Place = Place(title: "temp", distance: 320, image: UIImage(named: "warsaw")!)
+    var tableViewRowData: Place = Place(title: "temp", distance: 320, image: UIImage(systemName: "photo.on.rectangle.angled")!)
 //    var usersLocation: CLLocation?
     
     override func viewDidLoad() {

@@ -18,9 +18,11 @@
 		0A3E86F227BDB3BE005B55C9 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3E86F127BDB3BE005B55C9 /* MapKit.framework */; };
 		0A4EA57127C3C974005ED641 /* WikipediaKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4EA57027C3C974005ED641 /* WikipediaKit */; };
 		0A4EA57327C3CD87005ED641 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4EA57227C3CD87005ED641 /* Functions.swift */; };
+		0A8B977A27C54FB800AC9766 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8B977927C54FB800AC9766 /* RealmManager.swift */; };
 		0ABE46F027BE8BD400A68223 /* PlacesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE46EF27BE8BD400A68223 /* PlacesListCell.swift */; };
 		0ABE46F227C0074A00A68223 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE46F127C0074A00A68223 /* MapAnnotation.swift */; };
 		0ADFEF4C27C27D5300491F06 /* APIPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADFEF4B27C27D5300491F06 /* APIPlace.swift */; };
+		492ABEBFE24437573A0A9523 /* Pods_AroundMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E1A0717EFB1723C7A8720C0 /* Pods_AroundMe.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,9 +38,13 @@
 		0A3E86EE27BDA78E005B55C9 /* PlaceDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailsViewController.swift; sourceTree = "<group>"; };
 		0A3E86F127BDB3BE005B55C9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0A4EA57227C3CD87005ED641 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		0A8B977927C54FB800AC9766 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		0ABE46EF27BE8BD400A68223 /* PlacesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesListCell.swift; sourceTree = "<group>"; };
 		0ABE46F127C0074A00A68223 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		0ADFEF4B27C27D5300491F06 /* APIPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPlace.swift; sourceTree = "<group>"; };
+		6E1A0717EFB1723C7A8720C0 /* Pods_AroundMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AroundMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E006EC71CDA2244F2FF48DBD /* Pods-AroundMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AroundMe.release.xcconfig"; path = "Target Support Files/Pods-AroundMe/Pods-AroundMe.release.xcconfig"; sourceTree = "<group>"; };
+		E74E835A0C0EEEE549D95514 /* Pods-AroundMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AroundMe.debug.xcconfig"; path = "Target Support Files/Pods-AroundMe/Pods-AroundMe.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +54,7 @@
 			files = (
 				0A3E86F227BDB3BE005B55C9 /* MapKit.framework in Frameworks */,
 				0A4EA57127C3C974005ED641 /* WikipediaKit in Frameworks */,
+				492ABEBFE24437573A0A9523 /* Pods_AroundMe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +67,7 @@
 				0A3E86D427BBB93D005B55C9 /* AroundMe */,
 				0A3E86D327BBB93D005B55C9 /* Products */,
 				0A3E86F027BDB3BE005B55C9 /* Frameworks */,
+				3E8B6A047AEAD485820CA2E0 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				0A3E86F127BDB3BE005B55C9 /* MapKit.framework */,
+				6E1A0717EFB1723C7A8720C0 /* Pods_AroundMe.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -119,8 +128,18 @@
 			isa = PBXGroup;
 			children = (
 				0A4EA57227C3CD87005ED641 /* Functions.swift */,
+				0A8B977927C54FB800AC9766 /* RealmManager.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		3E8B6A047AEAD485820CA2E0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E74E835A0C0EEEE549D95514 /* Pods-AroundMe.debug.xcconfig */,
+				E006EC71CDA2244F2FF48DBD /* Pods-AroundMe.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,9 +149,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0A3E86E627BBB941005B55C9 /* Build configuration list for PBXNativeTarget "AroundMe" */;
 			buildPhases = (
+				CFB2733162243BC955A1BA81 /* [CP] Check Pods Manifest.lock */,
 				0A3E86CE27BBB93D005B55C9 /* Sources */,
 				0A3E86CF27BBB93D005B55C9 /* Frameworks */,
 				0A3E86D027BBB93D005B55C9 /* Resources */,
+				81BCD6A106650EFA65392341 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -195,6 +216,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		81BCD6A106650EFA65392341 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AroundMe/Pods-AroundMe-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AroundMe/Pods-AroundMe-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AroundMe/Pods-AroundMe-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CFB2733162243BC955A1BA81 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AroundMe-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0A3E86CE27BBB93D005B55C9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -207,6 +270,7 @@
 				0ABE46F227C0074A00A68223 /* MapAnnotation.swift in Sources */,
 				0A3E86D627BBB93D005B55C9 /* AppDelegate.swift in Sources */,
 				0ABE46F027BE8BD400A68223 /* PlacesListCell.swift in Sources */,
+				0A8B977A27C54FB800AC9766 /* RealmManager.swift in Sources */,
 				0A3E86D827BBB93D005B55C9 /* SceneDelegate.swift in Sources */,
 				0A3E86EC27BBC9DB005B55C9 /* Place.swift in Sources */,
 			);
@@ -352,6 +416,7 @@
 		};
 		0A3E86E727BBB941005B55C9 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E74E835A0C0EEEE549D95514 /* Pods-AroundMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -384,6 +449,7 @@
 		};
 		0A3E86E827BBB941005B55C9 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E006EC71CDA2244F2FF48DBD /* Pods-AroundMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

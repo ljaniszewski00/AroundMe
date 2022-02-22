@@ -8,6 +8,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import RealmSwift 
 
 class PlaceDetailsViewController: UIViewController {
     @IBOutlet weak var placeImage: UIImageView!
@@ -17,32 +18,40 @@ class PlaceDetailsViewController: UIViewController {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var placeMapView: MKMapView!
     
-    var tableViewRowData: Place = Place(title: "temp", distance: 320, image: UIImage(systemName: "photo.on.rectangle.angled")!)
+    var tableViewRowData: Place = Place()
+//    var tableViewRowData: Place = Place(title: "temp", distance: 320, fullDescription: "", image: UIImage(systemName: "photo.on.rectangle.angled")!, latitude: 0, longitude: 0)
 //    var usersLocation: CLLocation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         navigationItem.title = tableViewRowData.title
-        favoriteButton.setImage(UIImage(systemName: "star")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        
+        if isFavorite() {
+            favoriteButton.setImage(UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        } else {
+            favoriteButton.setImage(UIImage(systemName: "star")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        }
+        
         favoriteButton.imageView?.contentMode = .scaleAspectFill
         favoriteButton.tintColor = .yellow
+        
         titleLabel.text = tableViewRowData.title
         
-        if let placeDistance = tableViewRowData.distance {
-            distanceLabel.text = "\(placeDistance) km"
+        if tableViewRowData.distance != -1 {
+            distanceLabel.text = "\(tableViewRowData.distance) km"
         } else {
             distanceLabel.text = "-"
         }
         
-        descriptionLabel.text = tableViewRowData.description
+        descriptionLabel.text = tableViewRowData.fullDescription
         placeImage.image = tableViewRowData.image
         
         placeMapView.layer.cornerRadius = 20
         
-        if let placeLatitude = tableViewRowData.latitude, let placeLongitude = tableViewRowData.longitude {
+        if tableViewRowData.latitude == 0 && tableViewRowData.longitude == 0 {
             let newPin = MKPointAnnotation()
-            newPin.coordinate = CLLocationCoordinate2D(latitude: placeLatitude, longitude: placeLongitude)
+            newPin.coordinate = CLLocationCoordinate2D(latitude: tableViewRowData.latitude, longitude: tableViewRowData.longitude)
             
             let region = MKCoordinateRegion(center: newPin.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
             placeMapView.setRegion(region, animated: true)
@@ -67,19 +76,28 @@ class PlaceDetailsViewController: UIViewController {
         placeMapView.showsUserLocation = true
     }
     
-    @IBAction func favoriteButtonTapped(_ sender: UIButton) {
-        if Place.favorites.contains(tableViewRowData) {
-            for (index, place) in Place.favorites.enumerated() {
-                if place == tableViewRowData {
-                    Place.favorites.remove(at: index)
-                    break
-                }
+    private func isFavorite() -> Bool {
+        for favoritePlace in RealmManager.shared.getFavoritePlaces() {
+            if favoritePlace == tableViewRowData {
+                return true
             }
+        }
+        
+        return false
+    }
+    
+    @IBAction func favoriteButtonTapped(_ sender: UIButton) {
+        print(isFavorite())
+        if isFavorite() {
+            RealmManager.shared.deletePlaceObject(tableViewRowData)
+            print(RealmManager.shared.getFavoritePlaces())
             sender.setImage(UIImage(systemName: "star")?.withRenderingMode(.alwaysTemplate), for: .normal)
         } else {
-            Place.favorites.append(tableViewRowData)
+            RealmManager.shared.addPlaceObject(tableViewRowData)
+            print(RealmManager.shared.getFavoritePlaces())
             sender.setImage(UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysTemplate), for: .normal)
         }
+        print(isFavorite())
     }
     
 }

@@ -21,6 +21,7 @@ class PlacesListViewController: UITableViewController, CLLocationManagerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(RealmManager.shared.getFavoritePlaces())
         
         // Loading indicator subviews
         
@@ -78,15 +79,22 @@ extension PlacesListViewController {
         cell.placeImage.image = place.image
         cell.titleLabel.text = place.title
         
-        if let placeLatitude = self.places[indexPath.row].latitude, let placeLongitude = self.places[indexPath.row].longitude, let usersLocation = self.locationManager.location {
-            let placeLocation = CLLocation(latitude: placeLatitude, longitude: placeLongitude)
-            let distanceMeters = usersLocation.distance(from: placeLocation)
-            let distanceKilometers = Int(distanceMeters / 1000)
-            self.places[indexPath.row].distance = distanceKilometers
+        let placeLatitude = self.places[indexPath.row].latitude
+        let placeLongitude = self.places[indexPath.row].longitude
+        
+        if let usersLocation = self.locationManager.location {
+            if placeLatitude != 0 && placeLongitude != 0 {
+                let placeLocation = CLLocation(latitude: placeLatitude, longitude: placeLongitude)
+                let distanceMeters = usersLocation.distance(from: placeLocation)
+                let distanceKilometers = Int(distanceMeters / 1000)
+                self.places[indexPath.row].distance = distanceKilometers
+            }
             
         }
         
-        if let placeDistance = self.places[indexPath.row].distance {
+        let placeDistance = self.places[indexPath.row].distance
+        
+        if placeDistance != -1 {
             cell.distanceLabel.text = "\(placeDistance) km"
         } else {
             cell.distanceLabel.text = "-"
@@ -218,12 +226,29 @@ extension PlacesListViewController {
                     let result = searchResult.items[0]
                     if let imageURL = result.imageURL {
                         downloadImage(from: imageURL) { image in
-                            let newPlace = Place(title: apiPlace.city, distance: nil, description: result.displayText, image: image, latitude: apiPlace.latitude, longitude: apiPlace.longitude)
+//                            let newPlace = Place(title: apiPlace.city, distance: nil, fullDescription: result.displayText, image: image, latitude: apiPlace.latitude, longitude: apiPlace.longitude)
+                            
+                            let newPlace = Place()
+                            newPlace.title = apiPlace.city
+                            newPlace.distance = -1
+                            newPlace.fullDescription = result.displayText
+                            newPlace.image = image
+                            newPlace.latitude = apiPlace.latitude
+                            newPlace.longitude = apiPlace.longitude
+                            
                             self.places.append(newPlace)
                             myGroup.leave()
                         }
                     } else {
-                        let newPlace = Place(title: apiPlace.city, distance: nil, description: result.displayText, image: UIImage(systemName: "photo.on.rectangle.angled"), latitude: apiPlace.latitude, longitude: apiPlace.longitude)
+//                        let newPlace = Place(title: apiPlace.city, distance: nil, fullDescription: result.displayText, image: UIImage(systemName: "photo.on.rectangle.angled"), latitude: apiPlace.latitude, longitude: apiPlace.longitude)
+                        let newPlace = Place()
+                        newPlace.title = apiPlace.city
+                        newPlace.distance = -1
+                        newPlace.fullDescription = result.displayText
+                        newPlace.image = UIImage(systemName: "photo.on.rectangle.angled")!
+                        newPlace.latitude = apiPlace.latitude
+                        newPlace.longitude = apiPlace.longitude
+                        
                         self.places.append(newPlace)
                         myGroup.leave()
                     }

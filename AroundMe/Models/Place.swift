@@ -25,6 +25,18 @@ class Place: Object {
     @objc dynamic var image: UIImage = UIImage(systemName: "photo.on.rectangle.angled")!
     @objc dynamic var latitude: Double = 0
     @objc dynamic var longitude: Double = 0
+    @objc dynamic var isFavorite: Bool = false
+    
+    convenience init(title: String, distance: Int, fullDescription: String, image: UIImage, latitude: Double, longitude: Double, isFavorite: Bool) {
+        self.init()
+        self.title = title
+        self.distance = distance
+        self.fullDescription = fullDescription
+        self.image = image
+        self.latitude = latitude
+        self.longitude = longitude
+        self.isFavorite = isFavorite
+    }
     
     override static func ignoredProperties() -> [String] {
         return ["image"]

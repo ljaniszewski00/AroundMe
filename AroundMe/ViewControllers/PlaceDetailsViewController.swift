@@ -27,7 +27,7 @@ class PlaceDetailsViewController: UIViewController {
         // Do any additional setup after loading the view.
         navigationItem.title = tableViewRowData.title
         
-        if isFavorite() {
+        if tableViewRowData.isFavorite {
             favoriteButton.setImage(UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysTemplate), for: .normal)
         } else {
             favoriteButton.setImage(UIImage(systemName: "star")?.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -76,28 +76,16 @@ class PlaceDetailsViewController: UIViewController {
         placeMapView.showsUserLocation = true
     }
     
-    private func isFavorite() -> Bool {
-        for favoritePlace in RealmManager.shared.getFavoritePlaces() {
-            if favoritePlace == tableViewRowData {
-                return true
-            }
-        }
-        
-        return false
-    }
-    
     @IBAction func favoriteButtonTapped(_ sender: UIButton) {
-        print(isFavorite())
-        if isFavorite() {
-            RealmManager.shared.deletePlaceObject(tableViewRowData)
-            print(RealmManager.shared.getFavoritePlaces())
+        if tableViewRowData.isFavorite {
+            RealmManager.shared.unmarkPlaceUnfavorite(place: tableViewRowData)
             sender.setImage(UIImage(systemName: "star")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            print(RealmManager.shared.getPlaces())
         } else {
-            RealmManager.shared.addPlaceObject(tableViewRowData)
-            print(RealmManager.shared.getFavoritePlaces())
+            RealmManager.shared.markPlaceFavorite(place: tableViewRowData)
             sender.setImage(UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            print(RealmManager.shared.getPlaces())
         }
-        print(isFavorite())
     }
     
 }

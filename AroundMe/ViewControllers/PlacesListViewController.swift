@@ -68,7 +68,7 @@ extension PlacesListViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PlacesListCell", for: indexPath) as? PlacesListCell else {
-            fatalError("Unable to dequeue ReminderCell")
+            fatalError("Unable to dequeue place cell")
         }
         
         dataLoadingIndicator.stopAnimating()
@@ -77,7 +77,17 @@ extension PlacesListViewController {
         
         let place = RealmManager.shared.getPlaces()[indexPath.row]
         cell.placeImage.layer.cornerRadius = 10
-        cell.placeImage.image = place.image
+        
+        if cell.placeImage == nil || cell.placeImage.image != UIImage(systemName: place.imageURLString) {
+            if place.imageURLString != "photo.on.rectangle.angled" && !place.imageURLString.isEmpty {
+                ImageDownloader.shared.downloadImage(with: place.imageURLString, completionHandler: { (image, cached) in
+                    cell.placeImage.image = image
+                }, placeholderImage: UIImage(systemName: place.imageURLString))
+            } else {
+                cell.placeImage.image = UIImage(systemName: place.imageURLString)
+            }
+        }
+        
         cell.titleLabel.text = place.title
         
         let placeLatitude = RealmManager.shared.getPlaces()[indexPath.row].latitude
@@ -108,6 +118,13 @@ extension PlacesListViewController {
             let tableViewRowData = RealmManager.shared.getPlaces()[indexPath.row]
             let placeDetailsViewController = segue.destination as! PlaceDetailsViewController
             placeDetailsViewController.tableViewRowData = tableViewRowData
+            guard let cell = tableView.cellForRow(at: indexPath) as? PlacesListCell else {
+                fatalError("Unable to get selected cell")
+            }
+            if let placeImage = cell.placeImage.image {
+                placeDetailsViewController.placeUIImage = placeImage
+            }
+            
 //            placeDetailsViewController.usersLocation = locationManager.location
         }
     }
@@ -225,16 +242,15 @@ extension PlacesListViewController {
             wikipedia.requestOptimizedSearchResults(language: WikipediaLanguage("en"), term: apiPlace.city) { (searchResult, error) in
                 if let searchResult = searchResult {
                     let result = searchResult.items[0]
+                    
                     if let imageURL = result.imageURL {
-                        downloadImage(from: imageURL) { image in
-                            DispatchQueue.main.async {
-                                RealmManager.shared.addPlaceCreatingNewObject(title: apiPlace.city, distance: -1, fullDescription: result.displayText, image: image, latitude: apiPlace.latitude, longitude: apiPlace.longitude, isFavorite: false)
-                                myGroup.leave()
-                            }
+                        DispatchQueue.main.async {
+                            RealmManager.shared.addPlaceCreatingNewObject(title: apiPlace.city, distance: -1, fullDescription: result.displayText, imageURLString: imageURL.absoluteString, latitude: apiPlace.latitude, longitude: apiPlace.longitude, isFavorite: false)
+                            myGroup.leave()
                         }
                     } else {
                         DispatchQueue.main.async {
-                            RealmManager.shared.addPlaceCreatingNewObject(title: apiPlace.city, distance: -1, fullDescription: result.displayText, image: UIImage(systemName: "photo.on.rectangle.angled")!, latitude: apiPlace.latitude, longitude: apiPlace.longitude, isFavorite: false)
+                            RealmManager.shared.addPlaceCreatingNewObject(title: apiPlace.city, distance: -1, fullDescription: result.displayText, imageURLString: "photo.on.rectangle.angled", latitude: apiPlace.latitude, longitude: apiPlace.longitude, isFavorite: false)
                             myGroup.leave()
                         }
                     }

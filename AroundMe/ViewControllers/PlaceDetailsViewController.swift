@@ -19,6 +19,7 @@ class PlaceDetailsViewController: UIViewController {
     @IBOutlet weak var placeMapView: MKMapView!
     
     var tableViewRowData: Place = Place()
+    var placeUIImage: UIImage = UIImage(systemName: "photo.on.rectangle.angled")!
 //    var tableViewRowData: Place = Place(title: "temp", distance: 320, fullDescription: "", image: UIImage(systemName: "photo.on.rectangle.angled")!, latitude: 0, longitude: 0)
 //    var usersLocation: CLLocation?
     
@@ -45,7 +46,11 @@ class PlaceDetailsViewController: UIViewController {
         }
         
         descriptionLabel.text = tableViewRowData.fullDescription
-        placeImage.image = tableViewRowData.image
+        
+        placeImage.image = placeUIImage
+        if placeUIImage == UIImage(systemName: "photo.on.rectangle.angled") {
+            placeImage.contentMode = .scaleAspectFit
+        }
         
         placeMapView.layer.cornerRadius = 20
         

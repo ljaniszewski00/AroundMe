@@ -19,6 +19,7 @@
 		0A4EA57127C3C974005ED641 /* WikipediaKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A4EA57027C3C974005ED641 /* WikipediaKit */; };
 		0A4EA57327C3CD87005ED641 /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4EA57227C3CD87005ED641 /* Functions.swift */; };
 		0A8B977A27C54FB800AC9766 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8B977927C54FB800AC9766 /* RealmManager.swift */; };
+		0A8B977E27C92F6600AC9766 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8B977D27C92F6600AC9766 /* ImageDownloader.swift */; };
 		0ABE46F027BE8BD400A68223 /* PlacesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE46EF27BE8BD400A68223 /* PlacesListCell.swift */; };
 		0ABE46F227C0074A00A68223 /* MapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABE46F127C0074A00A68223 /* MapAnnotation.swift */; };
 		0ADFEF4C27C27D5300491F06 /* APIPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADFEF4B27C27D5300491F06 /* APIPlace.swift */; };
@@ -39,6 +40,7 @@
 		0A3E86F127BDB3BE005B55C9 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0A4EA57227C3CD87005ED641 /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		0A8B977927C54FB800AC9766 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		0A8B977D27C92F6600AC9766 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		0ABE46EF27BE8BD400A68223 /* PlacesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesListCell.swift; sourceTree = "<group>"; };
 		0ABE46F127C0074A00A68223 /* MapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAnnotation.swift; sourceTree = "<group>"; };
 		0ADFEF4B27C27D5300491F06 /* APIPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIPlace.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 			children = (
 				0A4EA57227C3CD87005ED641 /* Functions.swift */,
 				0A8B977927C54FB800AC9766 /* RealmManager.swift */,
+				0A8B977D27C92F6600AC9766 /* ImageDownloader.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				0A3E86DA27BBB93D005B55C9 /* PlacesListViewController.swift in Sources */,
 				0ABE46F227C0074A00A68223 /* MapAnnotation.swift in Sources */,
 				0A3E86D627BBB93D005B55C9 /* AppDelegate.swift in Sources */,
+				0A8B977E27C92F6600AC9766 /* ImageDownloader.swift in Sources */,
 				0ABE46F027BE8BD400A68223 /* PlacesListCell.swift in Sources */,
 				0A8B977A27C54FB800AC9766 /* RealmManager.swift in Sources */,
 				0A3E86D827BBB93D005B55C9 /* SceneDelegate.swift in Sources */,

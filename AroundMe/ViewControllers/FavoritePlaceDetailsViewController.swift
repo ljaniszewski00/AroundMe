@@ -56,7 +56,7 @@ class FavoritePlaceDetailsViewController: UIViewController {
         
         favoritePlaceMapView.layer.cornerRadius = 20
         
-        if tableViewRowData.latitude == 0 && tableViewRowData.longitude == 0 {
+        if tableViewRowData.latitude != 0 && tableViewRowData.longitude != 0 {
             let newPin = MKPointAnnotation()
             newPin.coordinate = CLLocationCoordinate2D(latitude: tableViewRowData.latitude, longitude: tableViewRowData.longitude)
             

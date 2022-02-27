@@ -273,7 +273,6 @@ extension PlacesListViewController {
         }
         
         myGroup.notify(queue: .main) {
-            print("Finished all requests.")
             self.updateTableView()
         }
     }

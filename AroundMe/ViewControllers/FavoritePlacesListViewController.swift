@@ -36,8 +36,6 @@ class FavoritePlacesListViewController: UITableViewController, CLLocationManager
         notificationToken = RealmManager.shared.places.observe { [weak self] (changes) in
             guard let tableView = self?.tableView else { return }
             tableView.reloadData()
-            
-            debugPrint("reloading data")
         }
     }
     
@@ -56,10 +54,6 @@ extension FavoritePlacesListViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FavoritePlacesListCell", for: indexPath) as? FavoritePlacesListCell else {
             fatalError("Unable to dequeue place cell")
         }
-        
-        print()
-        print(RealmManager.shared.places)
-        print()
         
         if !RealmManager.shared.places.isEmpty {
             let place = RealmManager.shared.places[indexPath.row]

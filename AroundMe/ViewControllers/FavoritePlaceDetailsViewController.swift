@@ -86,7 +86,9 @@ class FavoritePlaceDetailsViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if toBeDeletedFromFavorites {
-            RealmManager.shared.deletePlace(placeTitle: self.tableViewRowData.title)
+            let tableViewRowDataTempTitle = tableViewRowData.title
+            tableViewRowData = Place()
+            RealmManager.shared.deletePlace(placeTitle: tableViewRowDataTempTitle)
             for (index, discoveredPlace) in DiscoveredPlace.discoveredPlaces.enumerated() {
                 if discoveredPlace.title == self.tableViewRowData.title {
                     DiscoveredPlace.discoveredPlaces[index].isFavorite = false

@@ -10,6 +10,12 @@ import MapKit
 import CoreLocation
 import WikipediaKit
 
+class PlacesListCell: UITableViewCell {
+    @IBOutlet var placeImage: UIImageView!
+    @IBOutlet var titleLabel: UILabel!
+    @IBOutlet var distanceLabel: UILabel!
+}
+
 class PlacesListViewController: UITableViewController, CLLocationManagerDelegate {
     var locationManager: CLLocationManager!
     let wikipedia = Wikipedia()
@@ -20,11 +26,9 @@ class PlacesListViewController: UITableViewController, CLLocationManagerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.main.async {
-            RealmManager.shared.deleteAllNonFavoritePlaceObjects()
-        }
-        
         // Loading indicator subviews
+        
+//        RealmManager.shared.deleteAllPlaceObjects()
         
         dataLoadingIndicator.center = self.view.center
         self.view.addSubview(dataLoadingIndicator)
@@ -63,7 +67,7 @@ class PlacesListViewController: UITableViewController, CLLocationManagerDelegate
 
 extension PlacesListViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return RealmManager.shared.getPlaces().count
+        return DiscoveredPlace.discoveredPlaces.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -71,51 +75,54 @@ extension PlacesListViewController {
             fatalError("Unable to dequeue place cell")
         }
         
-        dataLoadingIndicator.stopAnimating()
-        dataLoadingIndicator.hidesWhenStopped = true
-        dataLoadingLabel.isHidden = true
-        
-        let place = RealmManager.shared.getPlaces()[indexPath.row]
-        cell.placeImage.layer.cornerRadius = 10
-        
-        if cell.placeImage == nil || cell.placeImage.image != UIImage(systemName: place.imageURLString) {
-            if place.imageURLString != "photo.on.rectangle.angled" && !place.imageURLString.isEmpty {
-                ImageDownloader.shared.downloadImage(with: place.imageURLString, completionHandler: { (image, cached) in
-                    cell.placeImage.image = image
-                }, placeholderImage: UIImage(systemName: place.imageURLString))
-            } else {
-                cell.placeImage.image = UIImage(systemName: place.imageURLString)
-            }
-        }
-        
-        cell.titleLabel.text = place.title
-        
-        let placeLatitude = RealmManager.shared.getPlaces()[indexPath.row].latitude
-        let placeLongitude = RealmManager.shared.getPlaces()[indexPath.row].longitude
-        
-        if let usersLocation = self.locationManager.location {
-            if placeLatitude != 0 && placeLongitude != 0 {
-                let placeLocation = CLLocation(latitude: placeLatitude, longitude: placeLongitude)
-                let distanceMeters = usersLocation.distance(from: placeLocation)
-                let distanceKilometers = Int(distanceMeters / 1000)
-                RealmManager.shared.updatePlaceDistance(place: RealmManager.shared.getPlaces()[indexPath.row], distance: distanceKilometers)
+        if !DiscoveredPlace.discoveredPlaces.isEmpty {
+            dataLoadingIndicator.stopAnimating()
+            dataLoadingIndicator.hidesWhenStopped = true
+            dataLoadingLabel.isHidden = true
+            
+            let place = DiscoveredPlace.discoveredPlaces[indexPath.row]
+            cell.placeImage.layer.cornerRadius = 10
+            
+            if cell.placeImage == nil || cell.placeImage.image != UIImage(systemName: place.imageURLString) {
+                if place.imageURLString != "photo.on.rectangle.angled" && !place.imageURLString.isEmpty {
+                    ImageDownloader.shared.downloadImage(with: place.imageURLString, completionHandler: { (image, cached) in
+                        cell.placeImage.image = image
+                    }, placeholderImage: UIImage(systemName: place.imageURLString))
+                } else {
+                    cell.placeImage.image = UIImage(systemName: place.imageURLString)
+                }
             }
             
+            cell.titleLabel.text = place.title
+            
+            let placeLatitude = DiscoveredPlace.discoveredPlaces[indexPath.row].latitude
+            let placeLongitude = DiscoveredPlace.discoveredPlaces[indexPath.row].longitude
+            
+            if let usersLocation = self.locationManager.location {
+                if placeLatitude != 0 && placeLongitude != 0 {
+                    let placeLocation = CLLocation(latitude: placeLatitude, longitude: placeLongitude)
+                    let distanceMeters = usersLocation.distance(from: placeLocation)
+                    let distanceKilometers = Int(distanceMeters / 1000)
+                    DiscoveredPlace.discoveredPlaces[indexPath.row].distance = distanceKilometers
+                }
+                
+            }
+            
+            let placeDistance = DiscoveredPlace.discoveredPlaces[indexPath.row].distance
+            
+            if placeDistance != -1 {
+                cell.distanceLabel.text = "\(placeDistance) km"
+            } else {
+                cell.distanceLabel.text = "-"
+            }
         }
-        
-        let placeDistance = RealmManager.shared.getPlaces()[indexPath.row].distance
-        
-        if placeDistance != -1 {
-            cell.distanceLabel.text = "\(placeDistance) km"
-        } else {
-            cell.distanceLabel.text = "-"
-        }
+            
         return cell
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = tableView.indexPathForSelectedRow {
-            let tableViewRowData = RealmManager.shared.getPlaces()[indexPath.row]
+            let tableViewRowData = DiscoveredPlace.discoveredPlaces[indexPath.row]
             let placeDetailsViewController = segue.destination as! PlaceDetailsViewController
             placeDetailsViewController.tableViewRowData = tableViewRowData
             guard let cell = tableView.cellForRow(at: indexPath) as? PlacesListCell else {
@@ -245,12 +252,12 @@ extension PlacesListViewController {
                     
                     if let imageURL = result.imageURL {
                         DispatchQueue.main.async {
-                            RealmManager.shared.addPlaceCreatingNewObject(title: apiPlace.city, distance: -1, fullDescription: result.displayText, imageURLString: imageURL.absoluteString, latitude: apiPlace.latitude, longitude: apiPlace.longitude, isFavorite: false)
+                            DiscoveredPlace.discoveredPlaces.append(DiscoveredPlace(title: apiPlace.city, distance: -1, fullDescription: result.displayText, imageURLString: imageURL.absoluteString, latitude: apiPlace.latitude, longitude: apiPlace.longitude, isFavorite: false))
                             myGroup.leave()
                         }
                     } else {
                         DispatchQueue.main.async {
-                            RealmManager.shared.addPlaceCreatingNewObject(title: apiPlace.city, distance: -1, fullDescription: result.displayText, imageURLString: "photo.on.rectangle.angled", latitude: apiPlace.latitude, longitude: apiPlace.longitude, isFavorite: false)
+                            DiscoveredPlace.discoveredPlaces.append(DiscoveredPlace(title: apiPlace.city, distance: -1, fullDescription: result.displayText, imageURLString: "photo.on.rectangle.angled", latitude: apiPlace.latitude, longitude: apiPlace.longitude, isFavorite: false))
                             myGroup.leave()
                         }
                     }

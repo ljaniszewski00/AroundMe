@@ -10,20 +10,20 @@ import MapKit
 import CoreLocation
 import RealmSwift
 
-class PlaceDetailsViewController: UIViewController {
-    @IBOutlet weak var placeImage: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var favoriteButton: UIButton!
-    @IBOutlet weak var distanceLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var placeMapView: MKMapView!
+class FavoritePlaceDetailsViewController: UIViewController {
+    @IBOutlet weak var favoritePlaceImage: UIImageView!
+    @IBOutlet weak var favoriteTitleLabel: UILabel!
+    @IBOutlet weak var favoriteButtonChanger: UIButton!
+    @IBOutlet weak var favoriteDistanceLabel: UILabel!
+    @IBOutlet weak var favoriteDescriptionLabel: UILabel!
+    @IBOutlet weak var favoritePlaceMapView: MKMapView!
     
-    var tableViewRowData: DiscoveredPlace = DiscoveredPlace()
+    var tableViewRowData: Place = Place()
     var placeUIImage: UIImage = UIImage(systemName: "photo.on.rectangle.angled")!
 //    var tableViewRowData: Place = Place(title: "temp", distance: 320, fullDescription: "", image: UIImage(systemName: "photo.on.rectangle.angled")!, latitude: 0, longitude: 0)
 //    var usersLocation: CLLocation?
     
-    private var toBeAddedToFavorites = false
+    private var toBeDeletedFromFavorites = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,37 +31,37 @@ class PlaceDetailsViewController: UIViewController {
         navigationItem.title = tableViewRowData.title
         
         if tableViewRowData.isFavorite {
-            favoriteButton.setImage(UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            favoriteButtonChanger.setImage(UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysTemplate), for: .normal)
         } else {
-            favoriteButton.setImage(UIImage(systemName: "star")?.withRenderingMode(.alwaysTemplate), for: .normal)
+            favoriteButtonChanger.setImage(UIImage(systemName: "star")?.withRenderingMode(.alwaysTemplate), for: .normal)
         }
         
-        favoriteButton.imageView?.contentMode = .scaleAspectFill
-        favoriteButton.tintColor = .yellow
+        favoriteButtonChanger.imageView?.contentMode = .scaleAspectFill
+        favoriteButtonChanger.tintColor = .yellow
         
-        titleLabel.text = tableViewRowData.title
+        favoriteTitleLabel.text = tableViewRowData.title
         
         if tableViewRowData.distance != -1 {
-            distanceLabel.text = "\(tableViewRowData.distance) km"
+            favoriteDistanceLabel.text = "\(tableViewRowData.distance) km"
         } else {
-            distanceLabel.text = "-"
+            favoriteDistanceLabel.text = "-"
         }
         
-        descriptionLabel.text = tableViewRowData.fullDescription
+        favoriteDescriptionLabel.text = tableViewRowData.fullDescription
         
-        placeImage.image = placeUIImage
+        favoritePlaceImage.image = placeUIImage
         if placeUIImage == UIImage(systemName: "photo.on.rectangle.angled") {
-            placeImage.contentMode = .scaleAspectFit
+            favoritePlaceImage.contentMode = .scaleAspectFit
         }
         
-        placeMapView.layer.cornerRadius = 20
+        favoritePlaceMapView.layer.cornerRadius = 20
         
         if tableViewRowData.latitude == 0 && tableViewRowData.longitude == 0 {
             let newPin = MKPointAnnotation()
             newPin.coordinate = CLLocationCoordinate2D(latitude: tableViewRowData.latitude, longitude: tableViewRowData.longitude)
             
             let region = MKCoordinateRegion(center: newPin.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
-            placeMapView.setRegion(region, animated: true)
+            favoritePlaceMapView.setRegion(region, animated: true)
             
             
             /*
@@ -69,24 +69,24 @@ class PlaceDetailsViewController: UIViewController {
              
             if let usersLocation = usersLocation {
                 let region = MKCoordinateRegion(center: newPin.coordinate, span: MKCoordinateSpan(latitudeDelta: abs(usersLocation.coordinate.latitude - placeLatitude), longitudeDelta: abs(usersLocation.coordinate.longitude - placeLongitude)))
-                placeMapView.setRegion(region, animated: true)
+                favoritePlaceMapView.setRegion(region, animated: true)
             } else {
                 let region = MKCoordinateRegion(center: newPin.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
-                placeMapView.setRegion(region, animated: true)
+                favoritePlaceMapView.setRegion(region, animated: true)
             }
              
              */
             
-            placeMapView.addAnnotations([newPin])
+            favoritePlaceMapView.addAnnotations([newPin])
         }
         
-        placeMapView.showsUserLocation = true
+        favoritePlaceMapView.showsUserLocation = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if toBeAddedToFavorites {
-            RealmManager.shared.addPlaceCreatingNewObject(title: tableViewRowData.title, distance: tableViewRowData.distance, fullDescription: tableViewRowData.fullDescription, imageURLString: tableViewRowData.imageURLString, latitude: tableViewRowData.latitude, longitude: tableViewRowData.longitude, isFavorite: true)
+        if toBeDeletedFromFavorites {
+            RealmManager.shared.deletePlace(placeTitle: self.tableViewRowData.title)
             for (index, discoveredPlace) in DiscoveredPlace.discoveredPlaces.enumerated() {
                 if discoveredPlace.title == self.tableViewRowData.title {
                     DiscoveredPlace.discoveredPlaces[index].isFavorite = false
@@ -97,23 +97,15 @@ class PlaceDetailsViewController: UIViewController {
     
     @IBAction func favoriteButtonTapped(_ sender: UIButton) {
         if tableViewRowData.isFavorite {
-            for (index, discoveredPlace) in DiscoveredPlace.discoveredPlaces.enumerated() {
-                if discoveredPlace.title == tableViewRowData.title {
-                    DiscoveredPlace.discoveredPlaces[index].isFavorite = false
-                }
-            }
-            tableViewRowData.isFavorite = false
+            RealmManager.shared.unmarkPlaceFavorite(place: tableViewRowData)
             sender.setImage(UIImage(systemName: "star")?.withRenderingMode(.alwaysTemplate), for: .normal)
-            toBeAddedToFavorites = false
+            print(RealmManager.shared.places)
+            toBeDeletedFromFavorites = true
         } else {
-            for (index, discoveredPlace) in DiscoveredPlace.discoveredPlaces.enumerated() {
-                if discoveredPlace.title == tableViewRowData.title {
-                    DiscoveredPlace.discoveredPlaces[index].isFavorite = true
-                }
-            }
-            tableViewRowData.isFavorite = true
+            RealmManager.shared.markPlaceFavorite(place: tableViewRowData)
             sender.setImage(UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysTemplate), for: .normal)
-            toBeAddedToFavorites = true
+            print(RealmManager.shared.places)
+            toBeDeletedFromFavorites = false
         }
     }
     

@@ -30,6 +30,16 @@ class PlaceDetailsViewController: UIViewController {
         // Do any additional setup after loading the view.
         navigationItem.title = tableViewRowData.title
         
+        NotificationCenter.default.addObserver(self,
+           selector: #selector(removeFavoriteMarker),
+           name: NSNotification.Name(rawValue: "removeFavoriteMarker"),
+           object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+           selector: #selector(addFavoriteMarker),
+           name: NSNotification.Name(rawValue: "addFavoriteMarker"),
+           object: nil)
+        
         if tableViewRowData.isFavorite {
             favoriteButton.setImage(UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysTemplate), for: .normal)
         } else {
@@ -86,11 +96,15 @@ class PlaceDetailsViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if toBeAddedToFavorites {
+            toBeAddedToFavorites = false
             RealmManager.shared.addPlaceCreatingNewObject(title: tableViewRowData.title, distance: tableViewRowData.distance, fullDescription: tableViewRowData.fullDescription, imageURLString: tableViewRowData.imageURLString, latitude: tableViewRowData.latitude, longitude: tableViewRowData.longitude, isFavorite: true)
-            for (index, discoveredPlace) in DiscoveredPlace.discoveredPlaces.enumerated() {
-                if discoveredPlace.title == self.tableViewRowData.title {
-                    DiscoveredPlace.discoveredPlaces[index].isFavorite = false
-                }
+        } else {
+            toBeAddedToFavorites = true
+        }
+        
+        for (index, discoveredPlace) in DiscoveredPlace.discoveredPlaces.enumerated() {
+            if discoveredPlace.title == self.tableViewRowData.title {
+                DiscoveredPlace.discoveredPlaces[index].isFavorite = !toBeAddedToFavorites
             }
         }
     }
@@ -117,4 +131,13 @@ class PlaceDetailsViewController: UIViewController {
         }
     }
     
+    @objc func removeFavoriteMarker(_ notification: NSNotification) {
+        tableViewRowData.isFavorite = false
+        favoriteButton.setImage(UIImage(systemName: "star")?.withRenderingMode(.alwaysTemplate), for: .normal)
+    }
+    
+    @objc func addFavoriteMarker(_ notification: NSNotification) {
+        tableViewRowData.isFavorite = true
+        favoriteButton.setImage(UIImage(systemName: "star.fill")?.withRenderingMode(.alwaysTemplate), for: .normal)
+    }
 }

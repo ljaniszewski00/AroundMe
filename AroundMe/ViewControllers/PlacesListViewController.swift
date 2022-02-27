@@ -250,14 +250,21 @@ extension PlacesListViewController {
                 if let searchResult = searchResult {
                     let result = searchResult.items[0]
                     
+                    var isFavorite = false
+                    for place in RealmManager.shared.places {
+                        if place.title == apiPlace.city {
+                            isFavorite = true
+                        }
+                    }
+                    
                     if let imageURL = result.imageURL {
                         DispatchQueue.main.async {
-                            DiscoveredPlace.discoveredPlaces.append(DiscoveredPlace(title: apiPlace.city, distance: -1, fullDescription: result.displayText, imageURLString: imageURL.absoluteString, latitude: apiPlace.latitude, longitude: apiPlace.longitude, isFavorite: false))
+                            DiscoveredPlace.discoveredPlaces.append(DiscoveredPlace(title: apiPlace.city, distance: -1, fullDescription: result.displayText, imageURLString: imageURL.absoluteString, latitude: apiPlace.latitude, longitude: apiPlace.longitude, isFavorite: isFavorite))
                             myGroup.leave()
                         }
                     } else {
                         DispatchQueue.main.async {
-                            DiscoveredPlace.discoveredPlaces.append(DiscoveredPlace(title: apiPlace.city, distance: -1, fullDescription: result.displayText, imageURLString: "photo.on.rectangle.angled", latitude: apiPlace.latitude, longitude: apiPlace.longitude, isFavorite: false))
+                            DiscoveredPlace.discoveredPlaces.append(DiscoveredPlace(title: apiPlace.city, distance: -1, fullDescription: result.displayText, imageURLString: "photo.on.rectangle.angled", latitude: apiPlace.latitude, longitude: apiPlace.longitude, isFavorite: isFavorite))
                             myGroup.leave()
                         }
                     }

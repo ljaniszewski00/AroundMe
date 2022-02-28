@@ -18,12 +18,13 @@ It uses custom API to load data of different places to the app and MongoDB Realm
 * Swift 5 [SwiftUI]    
 * Xcode 13  
 * MapKit
-* Custom API
 * MongoDB Realm
+* GeoDB Cities - Custom API to get nearby places: http://geodb-cities-api.wirefreethought.com
+* WikipediaKit - Swift Wikipedia API to get data about nearby places: https://github.com/Raureif/WikipediaKit
 
 
 ## Status
-In Progress...
+Finished
 
 
 ## Requirements
@@ -33,7 +34,7 @@ Any Apple device supporting iOS 10+
 ## Functionalities
 * list lots of different, interesting places thanks to the integration with custom API
 * get to know all these places by reading their descriptions and seeing photos
-* mark any of them as favorite by clicking only one button
+* mark any of them as favorite by clicking only one button and save them for viewing anywhere you like
 * get a look at a built-in map where particular place is situated on the globe
 
 

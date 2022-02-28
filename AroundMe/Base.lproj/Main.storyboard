@@ -487,11 +487,99 @@
                     <connections>
                         <segue destination="gWQ-bI-00Z" kind="relationship" relationship="viewControllers" id="tZp-2u-HmU"/>
                         <segue destination="Zd5-Wg-yJa" kind="relationship" relationship="viewControllers" id="M0i-Cs-NUd"/>
+                        <segue destination="Qlh-oH-szN" kind="relationship" relationship="viewControllers" id="dIH-qb-YcJ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vRT-uO-oyL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1714" y="26"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="Bua-nk-Shi">
+            <objects>
+                <navigationController id="Qlh-oH-szN" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" image="gearshape.fill" catalog="system" landscapeImage="gearshape.fill" selectedImage="gearshape.fill" id="nWT-uD-k9s"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="sOS-xi-Owd">
+                        <rect key="frame" x="0.0" y="44" width="428" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="eh4-GD-jU7" kind="relationship" relationship="rootViewController" id="hrf-DV-jSD"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E6h-SB-1PM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2554" y="763"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="Ntt-TH-aGd">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ClY-Z7-o0a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewController id="eh4-GD-jU7" customClass="SettingsViewController" customModule="AroundMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bnc-h2-03u" customClass="Settings">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="pXb-Ph-zCR">
+                                <rect key="frame" x="15" y="118" width="398" height="30"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="748" image="location.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="n1r-6h-QSh">
+                                        <rect key="frame" x="0.0" y="0.99999999999999822" width="30" height="28.333333333333336"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="FYI-eM-3pk"/>
+                                            <constraint firstAttribute="height" constant="30" id="UL6-t0-ReS"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Use Localization" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="xL6-lo-foE">
+                                        <rect key="frame" x="45" y="0.0" width="288" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" title="localizationSwitch" translatesAutoresizingMaskIntoConstraints="NO" id="3Xh-oe-oNP">
+                                        <rect key="frame" x="348" y="0.0" width="52" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="Qrn-sM-7o8"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="localizationSwitchPressed:" destination="eh4-GD-jU7" eventType="valueChanged" id="tjx-Ae-hXt"/>
+                                        </connections>
+                                    </switch>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="maO-Pa-c0g">
+                                <rect key="frame" x="15" y="773" width="398" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="UAX-1h-IPu"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="systemRedColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Delete saved places"/>
+                                <connections>
+                                    <action selector="deleteSavedPlacesButtonPressed:" destination="eh4-GD-jU7" eventType="touchUpInside" id="qMR-C8-iXB"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="COA-7H-hmT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="pXb-Ph-zCR" firstAttribute="top" secondItem="COA-7H-hmT" secondAttribute="top" constant="30" id="B5l-QM-5rf"/>
+                            <constraint firstItem="COA-7H-hmT" firstAttribute="bottom" secondItem="maO-Pa-c0g" secondAttribute="bottom" constant="30" id="NcQ-I9-VPa"/>
+                            <constraint firstItem="COA-7H-hmT" firstAttribute="trailing" secondItem="maO-Pa-c0g" secondAttribute="trailing" constant="15" id="PVP-er-Yle"/>
+                            <constraint firstItem="maO-Pa-c0g" firstAttribute="leading" secondItem="COA-7H-hmT" secondAttribute="leading" constant="15" id="bzn-DF-dOO"/>
+                            <constraint firstItem="pXb-Ph-zCR" firstAttribute="leading" secondItem="COA-7H-hmT" secondAttribute="leading" constant="15" id="ckn-dM-dst"/>
+                            <constraint firstItem="COA-7H-hmT" firstAttribute="trailing" secondItem="pXb-Ph-zCR" secondAttribute="trailing" constant="15" id="tWH-EC-9cN"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Settings" image="gearshape.fill" catalog="system" landscapeImage="gearshape.fill" selectedImage="gearshape.fill" id="qM7-gv-Y3b"/>
+                    <navigationItem key="navigationItem" title="Settings" id="0Lj-Mx-zca"/>
+                    <connections>
+                        <outlet property="deleteSavedPlacesButton" destination="maO-Pa-c0g" id="Hsz-G0-qyZ"/>
+                        <outlet property="localizationSwitch" destination="3Xh-oe-oNP" id="2tF-vg-6jg"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="-1621.9626168224297" y="905.83153347732184"/>
         </scene>
         <!--Discover-->
         <scene sceneID="nGO-lh-LYx">
@@ -514,6 +602,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <image name="location.circle.fill" catalog="system" width="128" height="121"/>
         <image name="location.fill" catalog="system" width="128" height="121"/>
         <image name="photo.on.rectangle.angled" catalog="system" width="128" height="100"/>
@@ -521,6 +610,9 @@
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -192,8 +192,15 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Favorites" id="EFV-ox-BCn"/>
+                    <navigationItem key="navigationItem" title="Favorites" id="EFV-ox-BCn">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="oi9-kz-mHs">
+                            <connections>
+                                <action selector="refreshFavoritePlacesListButtonPressed:" destination="2iD-3h-Irh" id="N20-iE-3P9"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="refreshFavoritePlacesListButton" destination="oi9-kz-mHs" id="JIe-6Z-jRW"/>
                         <outlet property="tableView" destination="b97-6K-QvD" id="vj2-Gw-lLq"/>
                     </connections>
                 </tableViewController>
@@ -521,7 +528,6 @@
         <!--Settings-->
         <scene sceneID="Ntt-TH-aGd">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ClY-Z7-o0a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="eh4-GD-jU7" customClass="SettingsViewController" customModule="AroundMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Bnc-h2-03u" customClass="Settings">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
@@ -658,6 +664,7 @@
                         <outlet property="placesPerPageValue" destination="c0X-2T-MBt" id="tWL-Hd-DkQ"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ClY-Z7-o0a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1621.9626168224297" y="905.83153347732184"/>
         </scene>

@@ -301,6 +301,9 @@ extension PlacesListViewController {
         }
         
         myGroup.notify(queue: .main) {
+            DiscoveredPlace.discoveredPlaces = DiscoveredPlace.discoveredPlaces.sorted {
+                $0.title < $1.title
+            }
             self.updateTableView()
         }
     }

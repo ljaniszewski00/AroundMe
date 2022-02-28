@@ -18,7 +18,7 @@ class FavoritePlacesListCell: UITableViewCell {
 
 class FavoritePlacesListViewController: UITableViewController, CLLocationManagerDelegate {
     var locationManager: CLLocationManager!
-    var notificationToken: NotificationToken?
+    @IBOutlet weak var refreshFavoritePlacesListButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,21 +42,21 @@ class FavoritePlacesListViewController: UITableViewController, CLLocationManager
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
         }
-        
-        notificationToken = RealmManager.shared.places.observe { [weak self] (changes) in
-            guard let tableView = self?.tableView else { return }
-            tableView.reloadData()
-        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    @IBAction func refreshFavoritePlacesListButtonPressed(_ sender: UIBarButtonItem) {
+        tableView.reloadData()
     }
 }
 
 extension FavoritePlacesListViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        debugPrint(RealmManager.shared.places.count)
         return RealmManager.shared.places.count
     }
     

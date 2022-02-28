@@ -97,9 +97,20 @@ class PlaceDetailsViewController: UIViewController {
         super.viewWillDisappear(animated)
         if toBeAddedToFavorites {
             toBeAddedToFavorites = false
-            RealmManager.shared.addPlaceCreatingNewObject(title: tableViewRowData.title, distance: tableViewRowData.distance, fullDescription: tableViewRowData.fullDescription, imageURLString: tableViewRowData.imageURLString, latitude: tableViewRowData.latitude, longitude: tableViewRowData.longitude, isFavorite: true)
+            var alreadyAdded = false
+            for place in RealmManager.shared.places {
+                if place.title == tableViewRowData.title {
+                    alreadyAdded = true
+                    break
+                }
+            }
+            if !alreadyAdded {
+                RealmManager.shared.addPlaceCreatingNewObject(title: tableViewRowData.title, distance: tableViewRowData.distance, fullDescription: tableViewRowData.fullDescription, imageURLString: tableViewRowData.imageURLString, latitude: tableViewRowData.latitude, longitude: tableViewRowData.longitude, isFavorite: true)
+            }
         } else {
-            toBeAddedToFavorites = true
+            if !tableViewRowData.isFavorite {
+                RealmManager.shared.deletePlace(placeTitle: tableViewRowData.title)
+            }
         }
         
         for (index, discoveredPlace) in DiscoveredPlace.discoveredPlaces.enumerated() {

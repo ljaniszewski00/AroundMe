@@ -6,7 +6,7 @@
 * [Status](#status)
 * [Requirements](#requirements)
 * [Functionalities](#functionalities)
-* [Preview Video](#preview-video)
+* [Screenshots](#screenshots)
 
 
 ## General info
@@ -37,4 +37,15 @@ Any Apple device supporting iOS 10+
 * get a look at a built-in map where particular place is situated on the globe
 
 
-## Preview Video
+## Screenshots
+<img src="https://github.com/ljaniszewski00/AroundMe/blob/main/AroundMe/Screenshots/PlacesListView.png?raw=true" width="370" height="790">   
+
+<img src="https://github.com/ljaniszewski00/AroundMe/blob/main/AroundMe/Screenshots/PlaceDetailsView.png?raw=true" width="370" height="790">    
+
+<img src="https://github.com/ljaniszewski00/AroundMe/blob/main/AroundMe/Screenshots/PlaceDetailsView2.png?raw=true" width="370" height="790">
+
+<img src="https://github.com/ljaniszewski00/AroundMe/blob/main/AroundMe/Screenshots/PlaceDetailsView3MapView.png?raw=true" width="370" height="790">      
+
+<img src="https://github.com/ljaniszewski00/AroundMe/blob/main/AroundMe/Screenshots/FavoritePlacesListView.png?raw=true" width="370" height="790">
+
+<img src="https://github.com/ljaniszewski00/AroundMe/blob/main/AroundMe/Screenshots/SettingsView.png?raw=true" width="370" height="790">

@@ -44,7 +44,7 @@ Any Apple device supporting iOS 10+
 
 <img src="https://github.com/ljaniszewski00/AroundMe/blob/main/AroundMe/Screenshots/PlaceDetailsView2.png?raw=true" width="370" height="790">
 
-<img src="https://github.com/ljaniszewski00/AroundMe/blob/main/AroundMe/Screenshots/PlaceDetailsView3MapView.png?raw=true" width="370" height="320">      
+<img src="https://github.com/ljaniszewski00/AroundMe/blob/main/AroundMe/Screenshots/PlaceDetailsView3MapView.png?raw=true" width="320" height="250">      
 
 <img src="https://github.com/ljaniszewski00/AroundMe/blob/main/AroundMe/Screenshots/FavoritePlacesListView.png?raw=true" width="370" height="790">
 

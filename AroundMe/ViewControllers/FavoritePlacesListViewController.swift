@@ -23,6 +23,16 @@ class FavoritePlacesListViewController: UITableViewController, CLLocationManager
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self,
+           selector: #selector(stopMonitoringFavoritePlacesLocation),
+           name: NSNotification.Name(rawValue: "stopMonitoringFavoritePlacesLocation"),
+           object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+           selector: #selector(startMonitoringFavoritePlacesLocation),
+           name: NSNotification.Name(rawValue: "startMonitoringFavoritePlacesLocation"),
+           object: nil)
+        
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -121,5 +131,17 @@ extension FavoritePlacesListViewController {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
+    
+    @objc func stopMonitoringFavoritePlacesLocation(_ notification: NSNotification) {
+        locationManager.stopMonitoringSignificantLocationChanges()
+        locationManager.stopUpdatingLocation()
+        locationManager.stopUpdatingHeading()
+    }
+    
+    @objc func startMonitoringFavoritePlacesLocation(_ notification: NSNotification) {
+        locationManager.startMonitoringSignificantLocationChanges()
+        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
     }
 }

@@ -93,8 +93,15 @@
                             </tableViewCell>
                         </prototypes>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Discover" id="jnD-CQ-I7V"/>
+                    <navigationItem key="navigationItem" title="Discover" id="jnD-CQ-I7V">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="refresh" id="ipm-aO-RAs">
+                            <connections>
+                                <action selector="refreshButtonPressed:" destination="6LA-6Y-wem" id="Zga-mI-TGn"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="refreshButton" destination="ipm-aO-RAs" id="Wit-kN-CzK"/>
                         <outlet property="tableView" destination="cwd-dG-Mve" id="Zjk-1O-o3h"/>
                     </connections>
                 </tableViewController>

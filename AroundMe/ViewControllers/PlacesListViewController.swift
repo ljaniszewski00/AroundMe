@@ -19,12 +19,23 @@ class PlacesListCell: UITableViewCell {
 class PlacesListViewController: UITableViewController, CLLocationManagerDelegate {
     var locationManager: CLLocationManager!
     let wikipedia = Wikipedia()
-
+    @IBOutlet weak var refreshButton: UIBarButtonItem!
+    
     let dataLoadingIndicator = UIActivityIndicatorView()
     let dataLoadingLabel = UILabel(frame: CGRect(x: 0, y: 50, width: 400, height: 25))
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NotificationCenter.default.addObserver(self,
+           selector: #selector(stopMonitoringLocation),
+           name: NSNotification.Name(rawValue: "stopMonitoringLocation"),
+           object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+           selector: #selector(startMonitoringLocation),
+           name: NSNotification.Name(rawValue: "startMonitoringLocation"),
+           object: nil)
         
         // Loading indicator subviews
         
@@ -62,6 +73,11 @@ class PlacesListViewController: UITableViewController, CLLocationManagerDelegate
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    @IBAction func refreshButtonPressed(_ sender: UIBarButtonItem) {
+        DiscoveredPlace.discoveredPlaces.removeAll()
+        makeAPICall()
     }
 }
 
@@ -115,6 +131,9 @@ extension PlacesListViewController {
             } else {
                 cell.distanceLabel.text = "-"
             }
+        } else {
+            dataLoadingLabel.isHidden = false
+            dataLoadingIndicator.startAnimating()
         }
             
         return cell
@@ -281,6 +300,18 @@ extension PlacesListViewController {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
+    
+    @objc func stopMonitoringLocation(_ notification: NSNotification) {
+        locationManager.stopMonitoringSignificantLocationChanges()
+        locationManager.stopUpdatingLocation()
+        locationManager.stopUpdatingHeading()
+    }
+    
+    @objc func startMonitoringLocation(_ notification: NSNotification) {
+        locationManager.startMonitoringSignificantLocationChanges()
+        locationManager.startUpdatingLocation()
+        locationManager.startUpdatingHeading()
     }
 }
 

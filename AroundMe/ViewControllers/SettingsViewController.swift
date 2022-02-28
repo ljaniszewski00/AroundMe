@@ -6,27 +6,25 @@
 //
 
 import UIKit
-import CoreLocation
 
-class SettingsViewController: UIViewController, CLLocationManagerDelegate {
+class SettingsViewController: UIViewController {
     @IBOutlet weak var localizationSwitch: UISwitch!
     @IBOutlet weak var deleteSavedPlacesButton: UIButton!
-    var locationManager: CLLocationManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
+        localizationSwitch.isOn = UserDefaults.standard.bool(forKey: "localizationSettingsSwitch")
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     @IBAction func localizationSwitchPressed(_ sender: UISwitch) {
+        UserDefaults.standard.set(sender.isOn, forKey: "localizationSettingsSwitch")
         if sender.isOn {
-            locationManager.startUpdatingLocation()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "startMonitoringLocation"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "startMonitoringFavoritePlacesLocation"), object: nil)
         } else {
-            locationManager.stopUpdatingLocation()
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopMonitoringLocation"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "stopMonitoringFavoritePlacesLocation"), object: nil)
         }
     }
     

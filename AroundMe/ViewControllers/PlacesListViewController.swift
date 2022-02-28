@@ -27,6 +27,14 @@ class PlacesListViewController: UITableViewController, CLLocationManagerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if UserDefaults.standard.value(forKey: "placesPerPage") == nil {
+            UserDefaults.standard.set(10, forKey: "placesPerPage")
+        }
+        
+        if UserDefaults.standard.value(forKey: "maxLocationRadius") == nil {
+            UserDefaults.standard.set(100, forKey: "maxLocationRadius")
+        }
+        
         NotificationCenter.default.addObserver(self,
            selector: #selector(stopMonitoringLocation),
            name: NSNotification.Name(rawValue: "stopMonitoringLocation"),
@@ -176,8 +184,9 @@ extension PlacesListViewController {
                 locationID = "\(locationID)\(usersLocation.coordinate.longitude)"
             }
             
-            let radius = 100
-            let limit = 10
+            let limit = Int(UserDefaults.standard.value(forKey: "placesPerPage") as! Float)
+            let radius = Int(UserDefaults.standard.value(forKey: "maxLocationRadius") as! Float)
+            
             
             /*
              

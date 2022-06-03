@@ -19,8 +19,8 @@ It uses custom API to load data of different places to the app and MongoDB Realm
 * Xcode 13  
 * MapKit
 * MongoDB Realm
-* GeoDB Cities - Custom API to get nearby places: http://geodb-cities-api.wirefreethought.com
-* WikipediaKit - Swift Wikipedia API to get data about nearby places: https://github.com/Raureif/WikipediaKit
+* [GeoDB Cities]http://geodb-cities-api.wirefreethought.com - Custom API to get nearby places
+* [WikipediaKit]http://geodb-cities-api.wirefreethought.com - Swift Wikipedia API to get information about nearby places
 
 
 ## Status

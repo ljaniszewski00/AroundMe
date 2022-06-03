@@ -15,7 +15,7 @@ It uses custom API to load data of different places to the app and MongoDB Realm
 
 
 ## Technologies
-* Swift 5 [SwiftUI]    
+* Swift 5 [UIKit]    
 * Xcode 13  
 * MapKit
 * MongoDB Realm
